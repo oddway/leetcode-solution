@@ -1,11 +1,3 @@
-// @before-stub-for-debug-begin
-#include <vector>
-#include <string>
-#include "commoncppproblem811.h"
-
-using namespace std;
-// @before-stub-for-debug-end
-
 #include <vector>
 using std::vector;
 
@@ -17,9 +9,6 @@ using std::istringstream;
 
 #include <unordered_map>
 using std::unordered_map;
-
-
-
 /*
  * @lc app=leetcode id=811 lang=cpp
  *
