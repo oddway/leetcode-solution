@@ -7,9 +7,9 @@
 // @lc code=start
 
 class Solution {
-public:
+   public:
     bool isValid(string s) {
-        //a stack for parentheses
+        // a stack for parentheses
         vector<char> parentheseStack;
 
         for (char c : s) {
@@ -18,29 +18,32 @@ public:
             }
 
             switch (c) {
-            case ')':
-                if (parentheseStack.empty() || parentheseStack.back() != '(') {
-                    return false;
-                }
+                case ')':
+                    if (parentheseStack.empty() ||
+                        parentheseStack.back() != '(') {
+                        return false;
+                    }
 
-                parentheseStack.pop_back();
-                break;
+                    parentheseStack.pop_back();
+                    break;
 
-            case '}':
-                if (parentheseStack.empty() || parentheseStack.back() != '{') {
-                    return false;
-                }
-                parentheseStack.pop_back();
-                break;
+                case '}':
+                    if (parentheseStack.empty() ||
+                        parentheseStack.back() != '{') {
+                        return false;
+                    }
+                    parentheseStack.pop_back();
+                    break;
 
-            case ']':
-                if (parentheseStack.empty() || parentheseStack.back() != '[') {
-                    return false;
-                }
-                parentheseStack.pop_back();
-                break;
-            default:
-                break;
+                case ']':
+                    if (parentheseStack.empty() ||
+                        parentheseStack.back() != '[') {
+                        return false;
+                    }
+                    parentheseStack.pop_back();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -48,4 +51,3 @@ public:
     }
 };
 // @lc code=end
-

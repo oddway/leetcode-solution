@@ -1,6 +1,6 @@
 // @before-stub-for-debug-begin
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 // @before-stub-for-debug-end
@@ -22,20 +22,20 @@ using namespace std;
  *
  * Given a string s, partition s such that every substring of the partition is
  * a palindrome.
- * 
+ *
  * Return all possible palindrome partitioning of s.
- * 
+ *
  * Example:
- * 
- * 
+ *
+ *
  * Input: "aab"
  * Output:
  * [
  * ⁠ ["aa","b"],
  * ⁠ ["a","a","b"]
  * ]
- * 
- * 
+ *
+ *
  */
 
 // @lc code=start
@@ -45,71 +45,44 @@ using namespace std;
  * Cut a head of the string with n-char long, if the head is
  * a palindrome, apply this method to the tail as
  * a new s recursively.
- * 
+ *
  * Memorize verified palindrome to run faster.
  */
-class Solution
-{
-public:
-    vector<vector<string>> partition(string s)
-    {   
-        vector<vector<string>> ans;
 
-        for (int i = 1; i <= s.length(); i++)
-        {
-            auto subpartitions = partitionHelper(s, i);
-            ans.insert(ans.end(), subpartitions.begin(), subpartitions.end());
+class Solution {
+   public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> ret;
+        if (s.length() == 0) {
+            return ret;
         }
 
-        return ans;
-        
+        vector<string> path;
+
+        partitionBt(s, 0, path, ret);
+
+        return ret;
     }
 
-    vector<vector<string>> partitionHelper(string s, int n)
-    {   
-        string head = s.substr(0, n);
-
-        if (!isPalindrome(head))
-        {
-            return vector<vector<string>>(); // Stop this branch with an empty return.
+    void partitionBt(const string &s, size_t index, vector<string> &path,
+                     vector<vector<string>> &ret) {
+        if (index == s.size()) {
+            ret.push_back(path);
+            return;
         }
 
-        vector<vector<string>> ans;
-
-        if (s.length() == head.length())
-        {   
-            ans.push_back(vector<string>{head});
-        }
-        else
-        {
-            string tail = s.substr(n);
-            for (int i = 1; i <= tail.length(); i++)
-            {
-                auto subpartitions = partitionHelper(tail, i);
-                for (auto subpartition : subpartitions)
-                {
-                    subpartition.insert(subpartition.begin(), head);
-                    ans.push_back(subpartition);
-                }
+        for (int i = index; i < s.size(); i++) {
+            if (isPalindrome(s, index, i)) {
+                path.push_back(s.substr(index, i - index + 1));
+                partitionBt(s, i + 1, path, ret);
+                path.pop_back();
             }
         }
-
-        return ans;
     }
 
-    bool isPalindrome(string s)
-    {
-        int len = s.length();
-
-        if (len == 1)
-        {
-            return true;
-        }
-
-        for (int i = 0; i <= len / 2 - 1; i++)
-        {
-            if (s[i] != s[len - 1 - i])
-            {
+    bool isPalindrome(const string &s, size_t l, size_t r) {
+        while (l < r) {
+            if (s[l++] != s[r--]) {
                 return false;
             }
         }
