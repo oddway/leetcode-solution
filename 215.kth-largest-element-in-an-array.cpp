@@ -1,11 +1,3 @@
-// @before-stub-for-debug-begin
-#include <vector>
-#include <string>
-#include "commoncppproblem215.h"
-
-using namespace std;
-// @before-stub-for-debug-end
-
 /*
  * @lc app=leetcode id=215 lang=cpp
  *
@@ -23,23 +15,23 @@ using namespace std;
  *
  * Find the kth largest element in an unsorted array. Note that it is the kth
  * largest element in the sorted order, not the kth distinct element.
- * 
+ *
  * Example 1:
- * 
- * 
+ *
+ *
  * Input: [3,2,1,5,6,4] and k = 2
  * Output: 5
- * 
- * 
+ *
+ *
  * Example 2:
- * 
- * 
+ *
+ *
  * Input: [3,2,3,1,2,4,5,5,6] and k = 4
  * Output: 4
- * 
- * Note: 
+ *
+ * Note:
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
- * 
+ *
  */
 #include <vector>
 using std::vector;
@@ -47,15 +39,13 @@ using std::vector;
 
 // @lc code=start
 class Solution {
-public:
+   public:
     int findKthLargest(vector<int>& nums, int k) {
         std::make_heap(nums.begin(), nums.end());
-        for (size_t i = 0; i < k - 1; i++)
-        {
+        for (size_t i = 0; i < k - 1; i++) {
             std::pop_heap(nums.begin(), nums.end() - i);
         }
         return nums[0];
     }
 };
 // @lc code=end
-
